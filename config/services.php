@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+    'automira' => [
+        'domain' => env('AUTOMIRA_DOMAIN'),
+        'login' => env('AUTOMIRA_LOGIN'),
+        'pass' => env('AUTOMIRA_PASSWORD')
+    ]
+
 ];
