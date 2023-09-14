@@ -75,6 +75,16 @@ Route::prefix('in')
                 ->orderFilter('branchOffice', $branchOffices)
                 ->orderFilter('status', $statuses)
                 ->orderFilter('responsible', $responsibles)
+                ->map(function ($el) {
+                    return [
+                        'kontragent' => $el['agent'],
+                        'storage' => $el['storage'],
+                        'date' => $el['date'],
+                        'number' => $el['number'],
+                        'status' => $el['status'],
+                        'id' => $el['id']
+                    ];
+                })
                 ->values();
         });
 
