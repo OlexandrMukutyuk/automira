@@ -44,7 +44,6 @@ class InController extends Controller
         });
     }
 
-
     public function orders(InOrdersRequest $request)
     {
         $data = $request->validated();
@@ -53,11 +52,17 @@ class InController extends Controller
             return Http::automira()->get('/getInOrders')->json();
         });
 
+
         return collect($response)
-            ->orderFilter('storage', $data['storage'] ?? [])
+            ->orderFilter('storage', $data['storages'] ?? [])
             ->orderFilter('agent', $data['counterparties'] ?? [])
             ->orderFilter('status', InOrderStatus::casesValues())
-            ->orderFilter('status', $data['status'] ?? [])
+            ->when(count($data['statuses'] ?? []))
+            ->orderFilter(
+                'status',
+                collect($data['statuses'])
+                    ->map(fn($s) => InOrderStatus::reverseSwapLabel($s))->toArray()
+            )
             ->map(function ($el) {
                 return [
                     'kontragent' => $el['agent'],

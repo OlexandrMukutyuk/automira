@@ -6,8 +6,12 @@ use Exception;
 
 enum InOrderStatus: string
 {
-    case IMPORT_STATUS_LABEL = 'Імпорт';
-    case WAREHOUSE_STATUS_LABEL = 'Прихід';
+
+    const IMPORT_LABEL = 'Звірка';
+    const WAREHOUSE_LABEL = 'Склад';
+
+    case IMPORT = 'Імпорт';
+    case WAREHOUSE = 'Прихід';
 
 
     public static function casesValues(): array
@@ -19,8 +23,17 @@ enum InOrderStatus: string
     public static function swapLabel(string $forSwap): string
     {
         return match ($forSwap) {
-            self::WAREHOUSE_STATUS_LABEL->value => 'Звірка',
-            self::IMPORT_STATUS_LABEL->value => "Склад",
+            self::IMPORT->value => self::IMPORT_LABEL,
+            self::WAREHOUSE->value => self::WAREHOUSE_LABEL,
+            default => throw new Exception("unmatched value")
+        };
+    }
+
+    public static function reverseSwapLabel(string $forSwap): string
+    {
+        return match ($forSwap) {
+            self::WAREHOUSE_LABEL => self::WAREHOUSE->value,
+            self::IMPORT_LABEL => self::IMPORT->value,
             default => throw new Exception("unmatched value")
         };
     }
