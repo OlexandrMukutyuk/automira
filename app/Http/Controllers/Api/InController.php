@@ -10,6 +10,13 @@ use Http;
 
 class InController extends Controller
 {
+
+    public function counterparties()
+    {
+        return Http::automira()->get('/getInCounterparties')->json();
+    }
+
+
     public function filters()
     {
         return Cache::remember('filters_in_orders', 60, function () {

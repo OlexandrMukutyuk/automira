@@ -53,6 +53,8 @@ Route::prefix('in')
     ->group(function () {
         Route::get('filters', 'filters');
 
+        Route::get('counterparties', 'counterparties');
+
         Route::post('orders', 'orders');
 
         Route::post('update-orders', 'updateOrders');
