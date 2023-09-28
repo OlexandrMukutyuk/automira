@@ -1,7 +1,10 @@
 <?php
 
 
-use App\Http\Controllers\Api\InController;
+use App\Http\Controllers\Api\In\CounterpartiesController;
+use App\Http\Controllers\Api\In\FiltersController;
+use App\Http\Controllers\Api\In\OrderListController;
+use App\Http\Controllers\Api\In\UpdateOrdersController;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ShelfRequest;
 use App\Http\Requests\ShelfsRequest;
@@ -19,11 +22,8 @@ Route::post('product', function (ProductRequest $request) {
         'code' => $data['code']
     ]);
 });
-
-
 Route::post('shelfs', function (ShelfsRequest $request) {
     $data = $request->validated();
-    now()->toDateTimeLocalString();
     return post_automira('/getShelfs', [
         'code' => $data['id']
     ]);
@@ -38,16 +38,16 @@ Route::post('shelf', function (ShelfRequest $request) {
 
 
 Route::prefix('in')
-    ->controller(InController::class)
     ->group(function () {
-        Route::get('filters', 'filters');
-        Route::get('counterparties', 'counterparties');
+        Route::get('filters', FiltersController::class);
+        Route::get('counterparties', CounterpartiesController::class);
 
         Route::prefix('orders')
             ->group(function () {
-                Route::post('new', 'newOrder');
+                Route::post('/', OrderListController::class);
+//                Route::post('new', 'newOrder');
+                Route::post('updated', UpdateOrdersController::class);
+
             });
-        Route::post('orders', 'orders');
-        Route::post('update-orders', 'updateOrders');
     });
 

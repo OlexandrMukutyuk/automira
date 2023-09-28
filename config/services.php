@@ -35,7 +35,8 @@ return [
     'automira' => [
         'domain' => env('AUTOMIRA_DOMAIN'),
         'login' => env('AUTOMIRA_LOGIN'),
-        'pass' => env('AUTOMIRA_PASSWORD')
+        'pass' => env('AUTOMIRA_PASSWORD'),
+        'fake_orders' => env('FAKE_ORDERS', false)
     ]
 
 ];
