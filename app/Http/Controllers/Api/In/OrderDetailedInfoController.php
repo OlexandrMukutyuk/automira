@@ -12,6 +12,8 @@ class OrderDetailedInfoController
             'ID' => $uuid,
         ])[0];
 
+        $data['id'] = $uuid;
+
         return InOrderResource::make($data);
     }
 }

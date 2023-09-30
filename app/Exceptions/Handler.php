@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Request;
 
 class Handler extends ExceptionHandler
 {
@@ -28,7 +27,7 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
 
-        $this->renderable(function (AutomiraException $e, Request $request) {
+        $this->renderable(function (AutomiraException $e) {
             return response()->json([
                 [
                     'find' => false
