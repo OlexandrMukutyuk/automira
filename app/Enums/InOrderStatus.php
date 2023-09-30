@@ -10,4 +10,14 @@ enum InOrderStatus: int
     case UNPROVED = 2;
     case DONT_SCANNED = 3;
 
+    public static function calculateStatus(bool $proved, bool $startedScan, string $type): self
+    {
+        $status = $proved ? InOrderStatus::PROVED : InOrderStatus::UNPROVED;
+
+        if ($type === InOrderType::IMPORT_LABEL && !$proved && !$startedScan) {
+            $status = InOrderStatus::DONT_SCANNED;
+        }
+
+        return $status;
+    }
 }

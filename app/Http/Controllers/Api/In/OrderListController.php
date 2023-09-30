@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api\In;
 
 use App\Enums\InOrderStatus;
 use App\Enums\InOrderType;
-use App\Http\Requests\InOrdersRequest;
+use App\Http\Requests\In\ListInOrdersRequest;
 use Cache;
 
 class OrderListController
 {
-    public function __invoke(InOrdersRequest $request)
+    public function __invoke(ListInOrdersRequest $request)
     {
         $data = $request->validated();
 
@@ -39,11 +39,8 @@ class OrderListController
 
                 $type = InOrderType::swapLabel($el['status']);
 
-                $status = $proved ? InOrderStatus::PROVED->value : InOrderStatus::UNPROVED->value;
+                $status = InOrderStatus::calculateStatus($proved, $startedScan, $type);
 
-                if ($type === InOrderType::IMPORT_LABEL && !$proved && !$startedScan) {
-                    $status = InOrderStatus::DONT_SCANNED->value;
-                }
 
                 return [
                     'kontragent' => $el['agent'],
@@ -51,7 +48,7 @@ class OrderListController
                     'date' => $el['date'],
                     'number' => $el['number'],
                     'type' => $type,
-                    'status' => $status,
+                    'status' => $status->value,
                     'id' => $el['id']
                 ];
             })

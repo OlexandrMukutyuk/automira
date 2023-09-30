@@ -1,16 +1,24 @@
 <?php
 
 
+use App\Exceptions\AutomiraException;
+
 if (!function_exists('get_automira')) {
 
     /**
      * Make get request to automira 1C server
      * @param string $path
      * @return array|mixed
+     * @throws AutomiraException
      */
     function get_automira(string $path): mixed
     {
-        return Http::automira()->get($path)->json();
+        $response = Http::automira()->get($path);
+        if ($response->status() === 204) {
+            throw new AutomiraException();
+        }
+
+        return $response->json();
     }
 }
 
@@ -22,10 +30,15 @@ if (!function_exists('post_automira')) {
      * @param string $path
      * @param array|null $data
      * @return array|mixed
+     * @throws AutomiraException
      */
     function post_automira(string $path, ?array $data = null): mixed
     {
-        return Http::automira()->post($path, $data)->json();
+        $response = Http::automira()->post($path, $data);
+        if ($response->status() === 204) {
+            throw new AutomiraException();
+        }
+
+        return $response->json();
     }
 }
-

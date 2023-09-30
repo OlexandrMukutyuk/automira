@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Throwable;
+use Request;
 
 class Handler extends ExceptionHandler
 {
@@ -18,13 +18,22 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    protected $dontReport = [
+        AutomiraException::class
+    ];
+
     /**
      * Register the exception handling callbacks for the application.
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+
+        $this->renderable(function (AutomiraException $e, Request $request) {
+            return response()->json([
+                [
+                    'find' => false
+                ]
+            ]);
         });
     }
 }

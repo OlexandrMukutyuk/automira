@@ -2,7 +2,10 @@
 
 
 use App\Http\Controllers\Api\In\CounterpartiesController;
+use App\Http\Controllers\Api\In\EditOrderController;
 use App\Http\Controllers\Api\In\FiltersController;
+use App\Http\Controllers\Api\In\NewOrderController;
+use App\Http\Controllers\Api\In\OrderDetailedInfoController;
 use App\Http\Controllers\Api\In\OrderListController;
 use App\Http\Controllers\Api\In\UpdateOrdersController;
 use App\Http\Requests\ProductRequest;
@@ -45,7 +48,12 @@ Route::prefix('in')
         Route::prefix('orders')
             ->group(function () {
                 Route::post('/', OrderListController::class);
-//                Route::post('new', 'newOrder');
+
+                Route::post('new', NewOrderController::class);
+                Route::put('edit', EditOrderController::class);
+
+                Route::get('{uuid}', OrderDetailedInfoController::class);
+
                 Route::post('updated', UpdateOrdersController::class);
 
             });
