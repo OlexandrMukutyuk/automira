@@ -7,8 +7,9 @@ use App\Http\Controllers\Api\In\FiltersController;
 use App\Http\Controllers\Api\In\NewOrderController;
 use App\Http\Controllers\Api\In\OrderDetailedInfoController;
 use App\Http\Controllers\Api\In\OrderListController;
+use App\Http\Controllers\Api\In\ProveOrderController;
 use App\Http\Controllers\Api\In\UpdateOrdersController;
-use App\Http\Requests\ProductRequest;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Requests\ShelfRequest;
 use App\Http\Requests\ShelfsRequest;
 use Illuminate\Support\Facades\Route;
@@ -18,13 +19,15 @@ Route::get('storages', fn() => get_automira('/getStorages'));
 Route::get('vendors', fn() => get_automira('/getVendors'));
 Route::get('responsibles', fn() => get_automira('/getResponsibles'));
 
-Route::post('product', function (ProductRequest $request) {
-    $data = $request->validated();
 
-    return post_automira('/getProduct', [
-        'code' => $data['code']
-    ]);
-});
+Route::prefix('product')
+    ->controller(ProductController::class)
+    ->group(function () {
+        Route::post('barcode', 'byBarcode');
+        Route::post('article', 'byArticle');
+    });
+
+
 Route::post('shelfs', function (ShelfsRequest $request) {
     $data = $request->validated();
     return post_automira('/getShelfs', [
@@ -51,6 +54,7 @@ Route::prefix('in')
 
                 Route::post('new', NewOrderController::class);
                 Route::put('edit', EditOrderController::class);
+                Route::post('prove', ProveOrderController::class);
 
                 Route::get('{uuid}', OrderDetailedInfoController::class);
 
