@@ -23,6 +23,7 @@ Route::get('responsibles', fn() => get_automira('/getResponsibles'));
 Route::prefix('product')
     ->controller(ProductController::class)
     ->group(function () {
+        Route::post('barcode/add', 'bindBarcodeToProduct');
         Route::post('barcode', 'byBarcode');
         Route::post('article', 'byArticle');
     });
