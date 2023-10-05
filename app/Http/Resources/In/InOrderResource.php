@@ -14,6 +14,7 @@ class InOrderResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+
         return [
             'id' => $this->when(isset($this['id']), fn() => $this['id']),
             'number' => $this['number'],
@@ -26,8 +27,7 @@ class InOrderResource extends JsonResource
             'responsibleId' => $this['responsibleId'],
             'type' => $type = InOrderType::swapLabel($this['status']),
             'status' => InOrderStatus::calculateStatus($this['proved'], $this['startedScan'], $type),
-            'products' => $this['products'],
-
+            'products' => InOrderProductResource::collection(array_map(fn($el) => [...$el, 'orderId' => $this['id']], $this['products'])),
         ];
     }
 }
