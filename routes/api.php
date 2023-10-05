@@ -32,7 +32,7 @@ Route::prefix('product')
 Route::post('shelfs', function (ShelfsRequest $request) {
     $data = $request->validated();
     return post_automira('/getShelfs', [
-        'code' => $data['id']
+        'id' => $data['id']
     ]);
 });
 Route::post('shelf', function (ShelfRequest $request) {
