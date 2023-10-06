@@ -21,7 +21,10 @@ class InOrderResource extends JsonResource
             'date' => $this['date'],
             'agent' => $this['agent'],
             'agentID' => $this['agentID'],
+
             'storage' => $this['storage'],
+            'storageId' => $this['storageId'],
+            
             'branchOffice' => $this['branchOffice'],
             'responsible' => $this['responsible'],
             'responsibleId' => $this['responsibleId'],
