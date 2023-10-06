@@ -18,7 +18,10 @@ class InOrderProductResource extends JsonResource
             "vendor" => $this['vendor'],
             "productId" => $this['productId'],
             "article" => $this['article'],
+
             "shelf" => $this['shelf'],
+            "shelfCode" => $this['shelfCode'],
+
             "barcode" => $this['barcode'],
             "count" => $this['count'],
             "countImport" => $this['countImport'],
