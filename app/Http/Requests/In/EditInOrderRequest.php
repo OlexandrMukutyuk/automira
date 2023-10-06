@@ -17,7 +17,7 @@ class EditInOrderRequest extends FormRequest
 
             'productArray.*.article' => ['required', 'uuid'],
             'productArray.*.count' => ['required', 'numeric'],
-            'productArray.*.shelf' => ['required', 'string'],
+            'productArray.*.shelf' => ['nullable', 'string', 'present'],
         ];
     }
 }
