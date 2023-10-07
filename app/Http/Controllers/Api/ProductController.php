@@ -37,11 +37,17 @@ class ProductController extends Controller
 
     public function bindBarcodeToProduct(Request $request)
     {
+
         $data = $request->validate([
             'article' => ['required'],
             'barCode' => ['required']
         ]);
 
-        return post_automira('/editProduct', $data);
+
+        post_automira('/editProduct', $data);
+
+        return response()->json([[
+            'find' => true
+        ]]);
     }
 }
