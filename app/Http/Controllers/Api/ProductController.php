@@ -18,7 +18,31 @@ class ProductController extends Controller
             'code' => ['required']
         ]);
 
-        return post_automira('/getProduct', $data);
+        $product = post_automira('/getProduct', $data);
+
+        if ($product[0]['find']) {
+            return [[
+                ...$product[0],
+                'isShelf' => false
+            ]];
+        }
+
+        $shelf = post_automira('/getShelf', $data);
+
+        if ($shelf[0]['find']) {
+            return [...$this->getProductShelf(true, true)];
+        }
+
+        return [...$this->getProductShelf(false, false)];
+    }
+
+
+    private function getProductShelf(bool $find, bool $isShelf): array
+    {
+        return [
+            'find' => $find,
+            'isShelf' => $isShelf
+        ];
     }
 
 
