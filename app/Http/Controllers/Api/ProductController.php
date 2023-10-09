@@ -30,10 +30,10 @@ class ProductController extends Controller
         $shelf = post_automira('/getShelf', $data);
 
         if ($shelf[0]['find']) {
-            return [...$this->getProductShelf(true, true)];
+            return [[...$this->getProductShelf(true, true)]];
         }
 
-        return [...$this->getProductShelf(false, false)];
+        return [[...$this->getProductShelf(false, false)]];
     }
 
 
