@@ -14,7 +14,7 @@ class EditOrderController
 
         $data = [
             ...$data,
-            'responsible' => $data['agent'] ?? '00000000-0000-0000-0000-000000000000',
+            'responsible' => $data['responsible'] ?? '00000000-0000-0000-0000-000000000000',
             'date' => now()->toDateTimeLocalString(),
         ];
 
