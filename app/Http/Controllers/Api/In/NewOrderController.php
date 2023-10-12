@@ -12,8 +12,9 @@ class NewOrderController
         $data = $request->validated();
 
         $data = [
-            ...$data,
             'agent' => '00000000-0000-0000-0000-000000000000',
+            'responsible' => '00000000-0000-0000-0000-000000000000',
+            ...$data,
             'date' => now()->toDateTimeLocalString(),
             'productArray' => []
         ];

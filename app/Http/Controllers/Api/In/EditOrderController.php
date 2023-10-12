@@ -9,11 +9,12 @@ class EditOrderController
 {
     public function __invoke(EditInOrderRequest $request)
     {
+
         $data = $request->validated();
 
         $data = [
             ...$data,
-            'agent' => $data['agent'] ?? '00000000-0000-0000-0000-000000000000',
+            'responsible' => $data['agent'] ?? '00000000-0000-0000-0000-000000000000',
             'date' => now()->toDateTimeLocalString(),
         ];
 

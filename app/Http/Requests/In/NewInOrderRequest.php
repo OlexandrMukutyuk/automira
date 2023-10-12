@@ -10,7 +10,8 @@ class NewInOrderRequest extends FormRequest
     {
         return [
             'storage' => ['required', 'uuid'],
-            'responsible' => ['required', 'uuid'],
+            'responsible' => ['uuid'],
+            'agent' => ['required', 'uuid']
         ];
     }
 }

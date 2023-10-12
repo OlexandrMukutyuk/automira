@@ -10,9 +10,9 @@ class EditInOrderRequest extends FormRequest
     {
         return [
             'id' => ['required', 'uuid'],
-            'agent' => ['uuid'],
+            'agent' => ['required', 'uuid'],
             'storage' => ['required', 'uuid'],
-            'responsible' => ['required', 'uuid'],
+            'responsible' => ['uuid'],
             'productArray' => ['required', 'array'],
 
             'productArray.*.article' => ['required', 'uuid'],
