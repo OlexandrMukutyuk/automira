@@ -14,7 +14,7 @@ enum InOrderStatus: int
     {
         $status = $proved ? InOrderStatus::PROVED : InOrderStatus::UNPROVED;
 
-        if ($type === InOrderType::IMPORT_LABEL && !$proved && !$startedScan) {
+        if (!$proved && !$startedScan) {
             $status = InOrderStatus::DONT_SCANNED;
         }
 

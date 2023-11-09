@@ -35,6 +35,8 @@ if (!function_exists('post_automira')) {
     function post_automira(string $path, ?array $data = null): mixed
     {
         $response = Http::automira()->post($path, $data);
+
+
         if ($response->status() === 204) {
             throw new AutomiraException();
         }
