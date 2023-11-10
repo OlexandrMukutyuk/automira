@@ -24,13 +24,15 @@ class InOrderResource extends JsonResource
 
             'storage' => $this['storage'],
             'storageId' => $this['storageId'],
-            
+
             'branchOffice' => $this['branchOffice'],
             'responsible' => $this['responsible'],
             'responsibleId' => $this['responsibleId'],
             'type' => $type = InOrderType::swapLabel($this['status']),
             'status' => InOrderStatus::calculateStatus($this['proved'], $this['startedScan'], $type),
             'products' => InOrderProductResource::collection(array_map(fn($el) => [...$el, 'orderId' => $this['id']], $this['products'])),
+
+            'deletionMark' => $this['deletionMark']
         ];
     }
 }
