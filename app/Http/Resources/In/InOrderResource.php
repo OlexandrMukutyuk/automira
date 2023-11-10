@@ -32,7 +32,8 @@ class InOrderResource extends JsonResource
             'status' => InOrderStatus::calculateStatus($this['proved'], $this['startedScan'], $type),
             'products' => InOrderProductResource::collection(array_map(fn($el) => [...$el, 'orderId' => $this['id']], $this['products'])),
 
-            'deletionMark' => $this['deletionMark']
+            'deletionMark' => $this['deletionMark'] ?? false
+
         ];
     }
 }
