@@ -26,6 +26,7 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Http\Middleware\JsonResponseMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -63,7 +64,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-//            JsonResponseMiddleware::class,
+            JsonResponseMiddleware::class,
             ThrottleRequests::class . ':api',
             SubstituteBindings::class,
         ],
