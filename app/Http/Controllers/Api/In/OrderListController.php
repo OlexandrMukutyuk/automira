@@ -30,7 +30,7 @@ class OrderListController
             ->when(count($data['statuses'] ?? []))
             ->orderFilter(
                 'status',
-                collect($data['statuses'])
+                collect($data['statuses'] ?? [])
                     ->map(fn($s) => InOrderType::reverseSwapLabel($s))->toArray()
             )
             ->map(function ($el) {
