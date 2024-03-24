@@ -27,9 +27,17 @@ class StockTakingController extends Controller
         }
         if ($request->action == 'end'){
             $data = $request->validate((new StockTakingSecondRequest())->rules());
-            
+
             return post_automira('/stocktaking', $data);
         }
+
+        if ($request->action == 'save'){
+            $data = $request->validate((new StockTakingSecondRequest())->rules());
+
+            return post_automira('/stocktaking', $data);
+        }
+
+
 
         return response()->json(['error' => 'Неправильний action']);
 
