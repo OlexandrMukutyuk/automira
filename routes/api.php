@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\In\ProveOrderController;
 use App\Http\Controllers\Api\In\UpdateOrdersController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StockTaking\StockTakingController;
+use App\Http\Controllers\Api\Autorization\AutorizationController;
 use App\Http\Requests\ShelfRequest;
 use App\Http\Requests\ShelfsRequest;
 use Illuminate\Support\Facades\Route;
@@ -66,3 +67,10 @@ Route::prefix('in')
     });
 
 Route::post('/stocktaking',[StockTakingController::class, 'stockTaking']);
+
+
+Route::prefix('autorizaion')
+    ->group(function () {
+        Route::get('users', fn() => get_automira('/authorization'));
+        Route::post('login',[AutorizationController::class, 'login']);
+    });
