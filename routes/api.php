@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\StockTaking\StockTakingController;
 use App\Http\Controllers\Api\Autorization\AutorizationController;
 use App\Http\Requests\ShelfRequest;
 use App\Http\Requests\ShelfsRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -72,5 +73,14 @@ Route::post('/stocktaking',[StockTakingController::class, 'stockTaking']);
 Route::prefix('autorizaion')
     ->group(function () {
         Route::get('users', fn() => get_automira('/authorization'));
-        Route::post('login',[AutorizationController::class, 'login']);
-    });
+        Route::post('login',function (Request $request) {
+            $data = $request->validate([
+                'login' => 'required|string',
+                'password' => 'required|string',
+            ]);
+            $Autorization = $data['login'] . ':' . $data['password'];
+            $Autorization = base64_encode($Autorization);
+            $req = array('Authorization' => $Autorization);;
+            return post_automira('/authorization',$req);
+        });
+});
