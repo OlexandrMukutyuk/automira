@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\In\OrderListController;
 use App\Http\Controllers\Api\In\ProveOrderController;
 use App\Http\Controllers\Api\In\UpdateOrdersController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\OutFiltersController;
 use App\Http\Controllers\Api\StockTaking\StockTakingController;
 use App\Http\Controllers\Api\Autorization\AutorizationController;
 use App\Http\Requests\ShelfRequest;
@@ -66,6 +67,50 @@ Route::prefix('in')
 
             });
     });
+
+
+Route::prefix('Out')
+    ->group(function () {
+        Route::get('getOutOrders', fn() => get_automira('/getOutOrders'));
+        Route::post('getOutOrder', function (ShelfsRequest $request) {
+            $data = $request->validated();
+            return post_automira('/getOutOrder', $data);
+        });
+        Route::post('editOutOrder', function (Request $request) {
+            $data = $request->toArray();
+            return post_automira('/editOutOrder', $data);
+        });
+        Route::get('filters', fn(Request $request) => get_automira('/filtersOutOrder'));
+          
+
+});
+
+
+Route::prefix('Get')
+    ->group(function () {
+        Route::get('getProduct', function (Request $request) {
+            $data = $request->toArray();
+            return post_automira('/getProduct', $data);
+        });
+        Route::get('getShelfs', function (Request $request) {
+            $data = $request->toArray();
+            return post_automira('/getShelfs', $data);
+        });
+        Route::get('getShelf', function (Request $request) {
+            $data = $request->toArray();
+            return post_automira('/getShelf', $data);
+        });
+        Route::get('getStorages', fn(Request $request) => get_automira('/getStorages'));     
+
+});
+
+Route::prefix('Move')
+    ->group(function () {
+        Route::get('filtersMoveOrder', fn(Request $request) => get_automira('/filtersMoveOrder'));
+           
+
+});
+
 
 Route::post('/stocktaking',[StockTakingController::class, 'stockTaking']);
 
