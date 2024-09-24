@@ -81,7 +81,7 @@ Route::prefix('Out')
             return post_automira('/editOutOrder', $data);
         });
         Route::get('filters', fn(Request $request) => get_automira('/filtersOutOrder'));
-          
+
 
 });
 
@@ -100,14 +100,19 @@ Route::prefix('Get')
             $data = $request->toArray();
             return post_automira('/getShelf', $data);
         });
-        Route::get('getStorages', fn(Request $request) => get_automira('/getStorages'));     
+
+        Route::get('getStorages', function (Request $request) {
+            $data = get_automira('/getStorages');
+            dd($data);
+            return get_automira('/getStorages');
+        });
 
 });
 
 Route::prefix('Move')
     ->group(function () {
         Route::get('filtersMoveOrder', fn(Request $request) => get_automira('/filtersMoveOrder'));
-           
+
 
 });
 
